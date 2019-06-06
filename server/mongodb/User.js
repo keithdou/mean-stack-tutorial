@@ -13,6 +13,9 @@ let schema = new Schema(
     passwordHash: {
       type: String
     },
+    emailAddress: {
+      type: String
+    },
     adminUser: {
       type: Boolean
     },

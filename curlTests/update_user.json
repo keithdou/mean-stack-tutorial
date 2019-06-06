@@ -1,6 +1,6 @@
 {
 "username" : "jane", 
-"password" : "jane",
+"emailAddress" : "jane@yahoo@gmail.com",
 "adminUser" : false,
 "canUpdate" : true,
 "canQuery" : true

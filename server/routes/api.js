@@ -124,6 +124,7 @@ router.post('/users/add',
 router.put('/users/update/:username', guard.check([['admin']]), (req, res) => { 
  
   console.log("update " +  req.params.username);
+  
   User.findOneAndUpdate(
                   {username : req.params.username},
                   req.body,
