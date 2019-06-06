@@ -1,0 +1,88 @@
+==================================
+Create NPM project
+==================================
+C:\apps\angularProjects\showcase>npm init
+This utility will walk you through creating a package.json file.
+It only covers the most common items, and tries to guess sensible defaults.
+
+See `npm help json` for definitive documentation on these fields
+and exactly what they do.
+
+Use `npm install <pkg>` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+Press ^C at any time to quit.
+package name: (showcase) showcase-server
+version: (1.0.0)
+description: Showcase server project
+entry point: (index.js)
+test command:
+git repository:
+keywords:
+author: K Dougall
+license: (ISC)
+About to write to C:\apps\angularProjects\showcase\package.json:
+
+{
+  "name": "showcase-server",
+  "version": "1.0.0",
+  "description": "Showcase server project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "K Dougall",
+  "license": "ISC"
+}
+
+
+Is this OK? (yes)
+
+=================================
+Install dependencies
+=================================
+npm install express
+npm install express-jwt
+npm install morgan
+npm install morgan-body
+npm install jsonwebtoken
+npm install mongoose
+
+=================================
+Mongo DB install.....
+=================================
+
+Mongo DB Management
+
+# Run this script to create the initial admin user; quit after the user has been created.
+node bootstrap.js
+
+
+Importing an array of documents in the format [ { "number" : "1"}, {"number2" : "2"}];
+
+$ "C:\Program Files\MongoDB\Server\4.0\bin\mongoimport" --collection myCollection  --db myDatabaseName  --file myfile.json --jsonArray
+"C:\Program Files\MongoDB\Server\4.0\bin\mongoimport" --collection books --db library --file ../dbloader/books.json --jsonArray
+
+Drop a collection
+show dbs
+use myDatabaseName
+db.myCollectionName.drop()
+
+drop a database
+use myDatabaseName
+db.dropDatabase()
+
+Queries
+use myDatabaseName
+show collections
+db.myCollectionName.find()
+
+Omitting columns
+db.myCollectionName.find({},{"__v":0})
+
+selected columns
+db.myCollectionName.find({},{"title":1, "author":1})
+
+
+
+nodemon server

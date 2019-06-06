@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h1>User List</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-primary"
+
+    (onclick)="addUser()"
+
+   *ngIf="securityObject.canUpdate">
+      Add New User
+    </button> 
+  </div>
+</div>
+
+<div class="table-responsive" *ngIf="users && users.length">
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Admin?</th>
+        <th>Query?</th>
+        <th>Update?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">      
+        <td>{{user.username}}</td>
+        <td>{{user.adminUser}}</td>
+        <td>{{user.canQuery}}</td>
+        <td>{{user.canUpdate}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

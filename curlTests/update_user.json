@@ -1,0 +1,7 @@
+{
+"username" : "jane", 
+"password" : "jane",
+"adminUser" : false,
+"canUpdate" : true,
+"canQuery" : true
+}

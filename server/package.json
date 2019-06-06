@@ -1,0 +1,22 @@
+{
+  "name": "showcase-server",
+  "version": "1.0.0",
+  "description": "Showcase server project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "K Dougall",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-jwt": "^5.3.1",
+    "express-jwt-permissions": "^1.3.1",
+    "express-validator": "^5.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.5.11",
+    "morgan": "^1.9.1",
+    "morgan-body": "^2.4.7"
+  }
+}

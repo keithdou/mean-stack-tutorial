@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h1>Book List</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-primary"
+
+    (onclick)="addBook()"
+
+   *ngIf="securityObject.canUpdate">
+      Add New Book
+    </button> 
+  </div>
+</div>
+
+<div class="table-responsive" *ngIf="books && books.length">
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of books">      
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
