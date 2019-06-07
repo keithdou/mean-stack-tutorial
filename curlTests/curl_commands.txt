@@ -1,7 +1,3 @@
-Load up some books:
-
-"C:\Program Files\MongoDB\Server\4.0\bin\mongoimport" --collection books --db library --file ../dbloader/books.json --jsonArray
-
 # Login
 /usr/local/opt/curl/bin/curl --header @curl_header.txt -X POST --noproxy "*" --data @login.json http://localhost:3000/api/user/login
 
@@ -17,10 +13,15 @@ Reset password
 /usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X PUT --noproxy "*" --data @password_reset.json http://localhost:3000/api/user/passwordreset/jane
 
 Delete user
-/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X DELETE --noproxy "*" http://localhost:3000/api/user/delete/john
+/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X DELETE --noproxy "*" http://localhost:3000/api/user/delete/5cf645e962d5ab08d7437626
 
 List Users
 /usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X GET --noproxy "*" http://localhost:3000/api/user/list
+
+=======================================
+
+Load up some books:
+mongoimport --collection books --db library --file ../dbloader/books.json --jsonArray
 
 Add Book
 /usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X POST --noproxy "*" --data @add_book.json http://localhost:3000/api/library/add
