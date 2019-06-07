@@ -20,7 +20,7 @@
       <li>
         <a routerLink="/userlist"
       
-           *ngIf="securityObject.adminUser">Users</a>
+           *ngIf="securityObject.emailAddress">Users</a>
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
@@ -33,7 +33,7 @@
         <a href="#" (onclick)="logout()"
     
            *ngIf="securityObject.isAuthenticated">
-          Logout {{securityObject.userName}}
+          Logout {{securityObject.username}}
         </a>
       </li>
     </ul>

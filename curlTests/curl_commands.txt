@@ -3,30 +3,33 @@ Load up some books:
 "C:\Program Files\MongoDB\Server\4.0\bin\mongoimport" --collection books --db library --file ../dbloader/books.json --jsonArray
 
 # Login
-/usr/local/opt/curl/bin/curl --header @curl_header.txt -X POST --noproxy "*" --data @login.json http://localhost:3000/api/login
+/usr/local/opt/curl/bin/curl --header @curl_header.txt -X POST --noproxy "*" --data @login.json http://localhost:3000/api/user/login
 
 ############### paste the token into curl_jwt_header.txt then:
 
 Add User
-/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X POST --noproxy "*" --data @add_user.json http://localhost:3000/api/users/add
+/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X POST --noproxy "*" --data @add_user.json http://localhost:3000/api/user/add
 
 Update User
-/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X PUT --noproxy "*" --data @update_user.json http://localhost:3000/api/users/update/jane
+/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X PUT --noproxy "*" --data @update_user.json http://localhost:3000/api/user/update/admin
+
+Reset password
+/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X PUT --noproxy "*" --data @password_reset.json http://localhost:3000/api/user/passwordreset/jane
 
 List Users
-/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X GET --noproxy "*" http://localhost:3000/api/users/list
+/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X GET --noproxy "*" http://localhost:3000/api/user/list
 
 Add Book
-/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X POST --noproxy "*" --data @add_book.json http://localhost:3000/api/books/add
+/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X POST --noproxy "*" --data @add_book.json http://localhost:3000/api/library/add
 
 Get Book - look up mongodb for id
-/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X GET --noproxy "*" http://localhost:3000/api/books/find/5cf508a8bb13069d1fb6a56d
+/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X GET --noproxy "*" http://localhost:3000/api/library/find/5cf508a8bb13069d1fb6a56d
 
 Update Book - look up mongodb for id
-/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X PUT --noproxy "*" --data @update_book.json http://localhost:3000/api/books/update/5cf07aabb2bd111c682b0ca6
+/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X PUT --noproxy "*" --data @update_book.json http://localhost:3000/api/library/update/5cf07aabb2bd111c682b0ca6
 
 Delete Book - look up mongodb for id
-/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X DELETE --noproxy "*" http://localhost:3000/api/books/delete/5cf09387ac579b3f78dedd7a
+/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X DELETE --noproxy "*" http://localhost:3000/api/library/delete/5cf09387ac579b3f78dedd7a
 
 List Books
-/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X GET --noproxy "*" http://localhost:3000/api/books/list
+/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X GET --noproxy "*" http://localhost:3000/api/library/list

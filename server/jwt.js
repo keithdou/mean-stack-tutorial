@@ -8,7 +8,7 @@ function jwt() {
     return expressJwt({ secret }).unless({
         path: [
             // public routes that don't require authentication
-            '/api/login'
+            '/api/user/login'
             //,'/api/users/add' //omment out / remobve after admin user created
         ]
     });

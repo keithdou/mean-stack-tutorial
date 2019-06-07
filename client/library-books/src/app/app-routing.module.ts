@@ -19,13 +19,13 @@ const routes: Routes = [
 		path: 'booklist', 
 		component: BookListComponent,
 	  	canActivate: [AuthGuard],
-    	data: {claimType: 'canQuery'} 
+    	data: {claimType: 'member'} 
     },
     {
 		path: 'userlist', 
 		component: UserComponent,
 	  	canActivate: [AuthGuard],
-    	data: {claimType: 'canQuery'} 
+    	data: {claimType: 'admin'} 
     },
     {
     	path: '', redirectTo: 'dashboard', pathMatch: 'full'

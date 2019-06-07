@@ -10,7 +10,7 @@ const httpOptions = {
   })
 };
 
-const API_URL = "/api/users/";
+const API_URL = "/api/user/";
 
 @Injectable({
   providedIn: 'root'

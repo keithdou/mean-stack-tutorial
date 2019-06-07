@@ -21,17 +21,15 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Admin?</th>
-        <th>Query?</th>
-        <th>Update?</th>
+        <th>Email Address</th>
+        <th>Mobile Number</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let user of users">      
         <td>{{user.username}}</td>
-        <td>{{user.adminUser}}</td>
-        <td>{{user.canQuery}}</td>
-        <td>{{user.canUpdate}}</td>
+        <td>{{user.emailAddress}}</td>
+        <td>{{user.mobileNumber}}</td>
       </tr>
     </tbody>
   </table>

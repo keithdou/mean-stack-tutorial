@@ -1,8 +1,10 @@
 export class AppUserAuth {
-    userName: string = "";
+    username: string = "";
     token: string = "";
-    adminUser: boolean = false;
     isAuthenticated: boolean = false;
-    canQuery: boolean = false;
-    canUpdate: boolean = false;
+    emailAddress: string = "";
+    mobileNumber: string = "";
+    member = false;
+    admin = false;
+
 }

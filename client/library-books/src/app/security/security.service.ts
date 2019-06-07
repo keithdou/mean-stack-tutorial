@@ -7,7 +7,7 @@ import { AppUser } from './app-user';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 
-const API_URL = "/api/";
+const API_URL = "/api/user/";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -25,12 +25,13 @@ export class SecurityService {
   constructor(private http: HttpClient) { }
 
   resetSecurityObject(): void {
-    this.securityObject.userName = "";
+    this.securityObject.username = "";
     this.securityObject.token = "";
     this.securityObject.isAuthenticated = false;
-  
-    this.securityObject.canUpdate = false;
-    this.securityObject.canQuery = false;
+    this.securityObject.emailAddress = "";
+    this.securityObject.mobileNumber = "";
+    this.securityObject.member = false;
+    this.securityObject.admin = false;
     
     localStorage.removeItem("currentUser");
   }
@@ -46,7 +47,7 @@ export class SecurityService {
       Object.assign(this.securityObject, resp);
       // Store user name + token into local storage
       localStorage.setItem("currentUser",JSON.stringify({
-        userName : this.securityObject.userName,
+        username : this.securityObject.username,
         token: this.securityObject.token}));
     }));
   }

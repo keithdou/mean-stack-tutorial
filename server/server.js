@@ -3,13 +3,13 @@ const path = require('path');
 const http = require('http');
 const morgan  = require('morgan');            // For request/response logging
 const morganBody  = require('morgan-body')    // For request/response body logging
-const api = require('./routes/api');
+const usersApi = require('./routes/user_api');
+const booksApi = require('./routes/library_api');
 const bodyParser = require('body-parser');    // pull information from HTML POST (express4)
 const jwt = require('./jwt');
 const errorHandler = require('./error-handler');
 const mongoose = require('mongoose');
 const config = require('./mongodb/DB');
-
 
 // DB Connection
 mongoose.Promise = global.Promise;
@@ -43,8 +43,9 @@ app.use('/api',function (req, res, next) {
     next();
 });
 
-// Redirect api calls to Express Router
-app.use('/api', api);
+// Redirect api calls to Express Routers
+app.use('/api/user', usersApi);
+app.use('/api/library', booksApi);
 
 // Global error handler
 app.use(errorHandler);
