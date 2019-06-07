@@ -174,9 +174,9 @@ router.put('/update/:username',
   }
   
   User.findOneAndUpdate(
-                  {username : req.params.username},
-                  req.body,
-                  {new: true})
+    {username : req.params.username},
+    req.body,
+    {new: true})
   .then(user => {
     if (user) {
       res.send(user);
@@ -236,6 +236,23 @@ router.put('/passwordreset/:username',
       console.log(err);
     res.status(400).send("unable to update database");
     });
+});
+
+// Delete User
+router.delete('/delete/:username', 
+  [
+    guard.check([['role:admin']])
+  ], (req, res) => {
+
+  User.findByIdAndRemove(
+    req.params.username)
+  .then(() => {
+    res.status(200).send("Delete successful");
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(400).send("unable to delete user");
+  });
 });
 
 // List users **************************

@@ -12,7 +12,7 @@ let guard = require('express-jwt-permissions')();
 // -----Protected Methods -- JWT required in Header (see Server.js) ---------------->
 
 // Add a new book ******************
-libraryRouter.post('/books/add', (req, res) => {
+libraryRouter.post('/add', (req, res) => {
   let book = new Book(req.body);
   book.save()
   .then(book => {
@@ -24,7 +24,7 @@ libraryRouter.post('/books/add', (req, res) => {
 });
 
 // Update existing book ******************
-libraryRouter.put('/books/update/:bookid', (req, res) => {
+libraryRouter.put('/update/:bookid', (req, res) => {
 
   Book.findByIdAndUpdate(
   	req.params.bookid,
@@ -43,7 +43,7 @@ libraryRouter.put('/books/update/:bookid', (req, res) => {
 });
 
 // Get existing book ******************
-libraryRouter.get('/books/find/:bookid', (req, res) => {
+libraryRouter.get('/find/:bookid', (req, res) => {
   Book.findById(
   	req.params.bookid)
   .then((book) => {
@@ -60,7 +60,7 @@ libraryRouter.get('/books/find/:bookid', (req, res) => {
 });
 
 // Delete book ******************
-libraryRouter.delete('/books/delete/:bookid', (req, res) => {
+libraryRouter.delete('/delete/:bookid', (req, res) => {
 
   Book.findByIdAndRemove(
   	req.params.bookid)
@@ -74,7 +74,7 @@ libraryRouter.delete('/books/delete/:bookid', (req, res) => {
 });
 
 // List books **************************
-libraryRouter.get('/books/list', (req, res) => {
+libraryRouter.get('/list', (req, res) => {
  Book.find({},{"__v" : 0})
  .sort('title')
  .then(bookList => {

@@ -16,6 +16,9 @@ Update User
 Reset password
 /usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X PUT --noproxy "*" --data @password_reset.json http://localhost:3000/api/user/passwordreset/jane
 
+Delete user
+/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X DELETE --noproxy "*" http://localhost:3000/api/user/delete/john
+
 List Users
 /usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X GET --noproxy "*" http://localhost:3000/api/user/list
 
@@ -26,10 +29,10 @@ Get Book - look up mongodb for id
 /usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X GET --noproxy "*" http://localhost:3000/api/library/find/5cf508a8bb13069d1fb6a56d
 
 Update Book - look up mongodb for id
-/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X PUT --noproxy "*" --data @update_book.json http://localhost:3000/api/library/update/5cf07aabb2bd111c682b0ca6
+/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X PUT --noproxy "*" --data @update_book.json http://localhost:3000/api/library/update/5cf508a8bb13069d1fb6a56d
 
 Delete Book - look up mongodb for id
-/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X DELETE --noproxy "*" http://localhost:3000/api/library/delete/5cf09387ac579b3f78dedd7a
+/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X DELETE --noproxy "*" http://localhost:3000/api/library/delete/5cf508a8bb13069d1fb6a56d
 
 List Books
 /usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X GET --noproxy "*" http://localhost:3000/api/library/list
