@@ -60,7 +60,7 @@ router.post('/login',
     		if (hash.passwordHash != user.passwordHash) {
     			return res.status(401).json({ message: 'Invalid password' });
     		}
-    		/* Create a JWT token */   
+    		/* Create a JWT token with custom permissions data */   
         console.log("user.roles:" + user.roles);  
         var member = false;
         var admin = false;
@@ -107,8 +107,14 @@ router.post('/login',
 router.post('/add', 
   [
     guard.check([['role:admin']]),
+    check('username', 'User name must be between 5 and 10 characters')
+        .isLength({ min:4, max:10}),
     check('password', 'Password must be between 4 and 24 characters')
-        .isLength({ min:4, max:24})
+        .isLength({ min:4, max:24}),
+    check('mobileNumber','Invalid Australian mobile number')
+        .isMobilePhone('en-AU'),
+    check('emailAddress','Invalid email address format')
+        .isEmail()
   ], (req, res) => {
 
   const errors = validationResult(req);
@@ -162,6 +168,7 @@ router.put('/update/:username',
     }
   });
 
+  /* Only admin user or this (authenticated) user can update */
   if (!adminUser && req.user.sub != req.params.username) {
     return res.status(401).send("User is not authenticated");
   }
