@@ -144,6 +144,7 @@ router.post('/add',
 // Update existing user ******************
 router.put('/update/:username', 
   [
+    guard.check([['role:admin'],['role:member']]),
     check('salt', 'cannot be updated')
         .isEmpty(),
     check('passwordHash', 'cannot be updated')
@@ -192,6 +193,7 @@ router.put('/update/:username',
 // Password Reset ******************
 router.put('/passwordreset/:username', 
 [
+  guard.check([['role:admin'],['role:member']]),
   check('password', 'Password must be between 4 and 24 characters')
         .isLength({ min:4, max:24})
 ], (req, res) => {
@@ -238,7 +240,7 @@ router.put('/passwordreset/:username',
     });
 });
 
-// Delete User
+// Delete User *********************************
 router.delete('/delete/:username', 
   [
     guard.check([['role:admin']])
