@@ -1,7 +1,7 @@
 {
-"username" : "fred", 
-"password" : "fred",
-"emailAddress" : "fred@yahoo.com",
-"mobileNumber" : "0409123456",
+"username" : "wally", 
+"password" : "wally",
+"emailAddress" : "wally@yahoo.com",
+"mobileNumber" : "0409444444",
 "roles"     : [{"name" : "member"}]
 }

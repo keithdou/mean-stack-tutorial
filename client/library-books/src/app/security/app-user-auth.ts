@@ -1,4 +1,5 @@
 export class AppUserAuth {
+	userId: string = "";
     username: string = "";
     token: string = "";
     isAuthenticated: boolean = false;

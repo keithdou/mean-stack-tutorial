@@ -76,12 +76,13 @@ router.post('/login',
         });
         console.log("permissions:" + permissions);
         const token = jwt.sign(
-          { sub: username,
+          { sub: user.id,
             permissions: permissions,
           }, config.secret);
 
         /* Format Authenticated User record */
         var auth = {
+          userId: user.id,
           username: username,
           token : token,
           isAuthenticated : true,
@@ -142,17 +143,19 @@ router.post('/add',
 });
 
 // Update existing user ******************
-router.put('/update/:username', 
+router.put('/update/:userId', 
   [
     guard.check([['role:admin'],['role:member']]),
+    check('userId','Invalid id')
+      .isMongoId(),
     check('salt', 'cannot be updated')
-        .isEmpty(),
+      .isEmpty(),
     check('passwordHash', 'cannot be updated')
-        .isEmpty(),
+      .isEmpty(),
     check('mobileNumber','Invalid Australian mobile number')
-        .isMobilePhone('en-AU'),
+      .isMobilePhone('en-AU'),
     check('emailAddress','Invalid email address format')
-        .isEmail()
+      .isEmail()
   ],(req, res) => { 
  
   console.log("update " +  req.params.username);
@@ -170,14 +173,14 @@ router.put('/update/:username',
   });
 
   /* Only admin user or this (authenticated) user can update */
-  if (!adminUser && req.user.sub != req.params.username) {
+  if (!adminUser && req.user.sub != req.params.userId) {
     return res.status(401).send("User is not authenticated");
   }
   
-  User.findOneAndUpdate(
-    {username : req.params.username},
+  User.findByIdAndUpdate(
+    req.params.userId,
     req.body,
-    {new: true})
+   {new: true})
   .then(user => {
     if (user) {
       res.send(user);
@@ -186,14 +189,16 @@ router.put('/update/:username',
     }
   })
   .catch(err => {
-    res.status(400).send("unable to update database");
+    res.status(400).send("unable to update database:" + err);
   });
 });
 
 // Password Reset ******************
-router.put('/passwordreset/:username', 
+router.put('/passwordreset/:userId', 
 [
   guard.check([['role:admin'],['role:member']]),
+  check('userId','Invalid id')
+      .isMongoId(),
   check('password', 'Password must be between 4 and 24 characters')
         .isLength({ min:4, max:24})
 ], (req, res) => {
@@ -211,13 +216,13 @@ router.put('/passwordreset/:username',
     }
   });
 
-  if (!adminUser && req.user.sub != req.params.username) {
+  if (!adminUser && req.user.sub != req.params.userId) {
     return res.status(401).send("User is not authenticated");
   }
  
   /* Find the user record */
-  User.findOne(
-    {username : req.params.username})
+  User.findById(
+    req.params.userId)
     .then(user => {
       if (user) {
         /* Generate new salt and hash */
@@ -241,13 +246,15 @@ router.put('/passwordreset/:username',
 });
 
 // Delete User *********************************
-router.delete('/delete/:username', 
+router.delete('/delete/:userId', 
   [
-    guard.check([['role:admin']])
+    guard.check([['role:admin']]),
+    check('userId','Invalid id')
+      .isMongoId(),
   ], (req, res) => {
 
   User.findByIdAndRemove(
-    req.params.username)
+    req.params.userId)
   .then(() => {
     res.status(200).send("Delete successful");
   })

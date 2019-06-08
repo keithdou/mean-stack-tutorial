@@ -7,10 +7,10 @@ Add User
 /usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X POST --noproxy "*" --data @add_user.json http://localhost:3000/api/user/add
 
 Update User
-/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X PUT --noproxy "*" --data @update_user.json http://localhost:3000/api/user/update/admin
+/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X PUT --noproxy "*" --data @update_user.json http://localhost:3000/api/user/update/5cf500d2e85bdb9ce34b056e
 
 Reset password
-/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X PUT --noproxy "*" --data @password_reset.json http://localhost:3000/api/user/passwordreset/jane
+/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X PUT --noproxy "*" --data @password_reset.json http://localhost:3000/api/user/passwordreset/5cf500d2e85bdb9ce34b056e
 
 Delete user
 /usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X DELETE --noproxy "*" http://localhost:3000/api/user/delete/5cf645e962d5ab08d7437626
