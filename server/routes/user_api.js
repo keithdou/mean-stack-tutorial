@@ -3,6 +3,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');		// for JWT
 const config = require('../config.json');	// secret string for JWT
 const crypto = require('crypto');			// for Password hashing
+const nodemailer = require("nodemailer"); // for email
 
 const router = express.Router();			// Express Router 	
 const mongoose = require('mongoose');		// MongoDB handler
@@ -10,6 +11,9 @@ const {check, validationResult} = require('express-validator/check');
 
 let User = require('../mongodb/User');
 let guard = require('express-jwt-permissions')();
+
+/* Constants */
+const adminEmail = "keith111@mailinator.com";
 
 /* Generate Salt (for new users only) */
 var generateSalt = function(length){
@@ -28,6 +32,25 @@ var sha512 = function(password, salt){
     passwordHash:value
   };
 };
+
+/* NodeMailer test account */
+var transporter;
+nodemailer.createTestAccount()
+ .then(testAccount => {
+    console.log("Test account %s/%s",testAccount.user,testAccount.pass);
+    transporter = nodemailer.createTransport({
+      host: "smtp.ethereal.email",
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: testAccount.user, // generated ethereal user
+        pass: testAccount.pass // generated ethereal password
+      }
+    })
+  })
+ .catch(err => {
+      console.log(err);
+ });
 
 // ------------------- Public (unprotected) Methods -----------------------
 router.post('/login', 
@@ -62,17 +85,9 @@ router.post('/login',
     		}
     		/* Create a JWT token with custom permissions data */   
         console.log("user.roles:" + user.roles);  
-        var member = false;
-        var admin = false;
         var permissions = [];
         user.roles.forEach(role => {
-          if (role.name === "member") {
-            permissions.push("role:member");
-            member = true;
-          } else if (role.name === "admin") {
-            permissions.push("role:admin");
-            admin = true;
-          }
+          permissions.push("role:" + role.name);
         });
         console.log("permissions:" + permissions);
         const token = jwt.sign(
@@ -88,8 +103,7 @@ router.post('/login',
           isAuthenticated : true,
           emailAddress : user.emailAddress,
           mobileNumber : user.mobileNumber,
-          member : member,
-          admin : admin
+          roles : user.roles
         };
         res.send(auth);
       } else {
@@ -123,22 +137,47 @@ router.post('/add',
     return res.status(422).jsonp(errors.array());
   }  
 
-	var password = req.body.password;
-	
-	var userData = sha512(password,generateSalt(12));
-	console.log("salt=" + userData.salt);
-	console.log("passwordHash=" + userData.passwordHash); 
+  User.findOne(
+      {"username" : req.body.username}
+     )
+    .then((existingUser) => {
+      if (existingUser) {
+        return res.status(400).send("User with this name already exists");
+      }
+      var password = req.body.password;
+  
+      var userData = sha512(password,generateSalt(12));
+      console.log("salt=" + userData.salt);
+      console.log("passwordHash=" + userData.passwordHash); 
 
-	let user = new User(req.body);
-	user.salt = userData.salt
-	user.passwordHash = userData.passwordHash;
+      let user = new User(req.body);
+      user.salt = userData.salt
+      user.passwordHash = userData.passwordHash;
 
-	user.save()
-    .then(book => {
-     res.status(200).json({'user': 'user added successfully'});
+      user.save()
+        .then(user => {
+          transporter.sendMail({
+            from: adminEmail, // sender address
+            to: user.emailAddress, // list of receivers
+            subject: "Bienvenue a " + user.username, // Subject line
+            text: "Bonjour tout le monde", // plain text body
+            html: "<b>Hello world</b>" // html body
+            })
+          .then(info => {
+            console.log("message to %s: %s",user.emailAddress, info);
+            console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+          })
+          .catch(err => {
+            console.log("message failed: %s",err);
+          });
+          res.status(200).json({'user': 'user added successfully'});
+        })
+        .catch(err => {
+         res.status(400).send("unable to save to database:" + err);
+        });
     })
     .catch(err => {
-     res.status(400).send("unable to save to database");
+      return res.status(400).send("unable to verify user :" + err);
     });
 });
 

@@ -17,6 +17,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.5.11",
     "morgan": "^1.9.1",
-    "morgan-body": "^2.4.7"
+    "morgan-body": "^2.4.7",
+    "nodemailer": "^6.2.1"
   }
 }

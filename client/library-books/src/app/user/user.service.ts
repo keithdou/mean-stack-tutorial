@@ -27,4 +27,11 @@ export class UserService {
     }));
   }
 
+  addUser(user) {
+    return this.http.post(API_URL + "add", user, httpOptions)
+      .pipe(
+        tap(resp => {
+           console.log(resp);
+        }));
+  }
 }

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +14,7 @@ import { SecurityService } from './security/security.service';
 import { AuthGuard } from './security/auth.guard';
 import { JwtInterceptor } from './security/jwt.interceptor';
 import { UserComponent } from './user/user.component';
+import { ManageComponent } from './user/manage/manage.component';
 
 @NgModule({
   declarations: [
@@ -21,11 +22,13 @@ import { UserComponent } from './user/user.component';
     LoginComponent,
     DashboardComponent,
     BookListComponent,
-    UserComponent
+    UserComponent,
+    ManageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
   ],

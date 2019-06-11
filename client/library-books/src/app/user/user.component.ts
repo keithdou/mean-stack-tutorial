@@ -21,7 +21,17 @@ export class UserComponent implements OnInit {
 
   private getUsers(): void {
     this.UserService.getUsers()
-      .subscribe(users => this.users = users);
+      .subscribe(users => 
+        {
+          this.users = users;
+          this.users.forEach(user => {
+            user.roleSummary = "";
+            user.roles.forEach(role => {
+              user.roleSummary += "," + role["name"];
+            });
+            user.roleSummary = user.roleSummary.substring(1);
+          });
+      });
   }
   
   addUser(): void {

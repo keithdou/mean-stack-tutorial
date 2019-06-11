@@ -31,6 +31,15 @@ export class LoginComponent implements OnInit {
     .subscribe(
       resp => {
         this.securityObject = resp;
+
+        // temp
+        this.securityObject.admin = true;
+        this.securityObject.roleSummary = '';
+        this.securityObject.roles.forEach(role => {
+          this.securityObject.roleSummary += "," + role["name"];
+        });
+        this.securityObject.roleSummary = this.securityObject.roleSummary.substring(1);
+   
         if (this.returnUrl) {
           this.router.navigateByUrl(this.returnUrl);
         }

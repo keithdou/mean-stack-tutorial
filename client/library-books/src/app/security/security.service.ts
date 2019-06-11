@@ -32,6 +32,8 @@ export class SecurityService {
     this.securityObject.mobileNumber = "";
     this.securityObject.member = false;
     this.securityObject.admin = false;
+    this.securityObject.roles = null;
+    this.securityObject.roleSummary = "";
     
     localStorage.removeItem("currentUser");
   }
@@ -45,6 +47,11 @@ export class SecurityService {
       // NOTE: Don't create a new AppUserAuth object
       //       because that destroys all references to object
       Object.assign(this.securityObject, resp);
+      // temp
+      this.securityObject.admin = true;
+      this.securityObject.roles.forEach(role => {
+        this.securityObject.roleSummary += "," + role["name"];
+      });
       // Store user name + token into local storage
       localStorage.setItem("currentUser",JSON.stringify({
         username : this.securityObject.username,
