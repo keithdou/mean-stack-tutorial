@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -26,6 +27,7 @@ import { ManageComponent } from './user/manage/manage.component';
     ManageComponent
   ],
   imports: [
+    MDBBootstrapModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,

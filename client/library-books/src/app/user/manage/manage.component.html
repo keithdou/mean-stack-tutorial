@@ -21,5 +21,5 @@
       <option *ngFor="let userRole of roles" [ngValue]="userRole">{{userRole}}</option>
     </select>
   </div>
-  <button type="submit" class="btn btn-default" [disabled]="!userForm.valid">Add user</button>
+  <button type="submit" mdbBtn color="primary" mdbWavesEffect [disabled]="!userForm.valid">Add user</button>
 </form>

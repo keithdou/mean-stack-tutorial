@@ -7,7 +7,5 @@ export class AppUserAuth {
     mobileNumber: string = "";
     roles: [] = null;
     roleSummary : string = "";
-    member = false;
-    admin = false;
-
+    admin: boolean = false;
 }
