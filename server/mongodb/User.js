@@ -13,9 +13,9 @@ let schema = new Schema(
   passwordHash: {
     type: String
   },
-  roles: [{
-    name: String
-  }],
+  roles: {
+    type: [String]
+  },
   emailAddress: {
     type: String
   },

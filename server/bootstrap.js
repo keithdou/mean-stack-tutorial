@@ -31,8 +31,8 @@ var sha512 = function(password, salt){
   };
 };
 
-var username = "john";
-var password = "john";
+var username = "admin";
+var password = "admin";
 
 User.findOne(
         {"username" : username}
@@ -45,12 +45,12 @@ User.findOne(
         console.log("salt=" + userData.salt);
         console.log("passwordHash=" + userData.passwordHash); 
 
-        let user = new User({username : "john"});
+        let user = new User({username : username});
         user.salt = userData.salt
         user.passwordHash = userData.passwordHash;
-        user.adminUser = true;
-        user.canUpdate = true;
-        user.canQuery = true;
+        user.emailAddress="adminZZZ@mailinator.com";
+        user.mobileNumber="0409123456";
+        user.roles=["admin","member"];
         user.save()
         .then(book => {
          console.log('user ' + username + ' added successfully');

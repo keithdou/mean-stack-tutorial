@@ -5,7 +5,3 @@ export class User {
     mobileNumber: string;
     roles: string[];
 }
-
-interface Role {
-  name : string;
-}

@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
         this.securityObject.admin = true;
         this.securityObject.roleSummary = '';
         this.securityObject.roles.forEach(role => {
-          this.securityObject.roleSummary += "," + role["name"];
+          this.securityObject.roleSummary += "," + role;
         });
         this.securityObject.roleSummary = this.securityObject.roleSummary.substring(1);
    

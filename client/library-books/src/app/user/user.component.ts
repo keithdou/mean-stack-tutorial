@@ -27,7 +27,7 @@ export class UserComponent implements OnInit {
           this.users.forEach(user => {
             user.roleSummary = "";
             user.roles.forEach(role => {
-              user.roleSummary += "," + role["name"];
+              user.roleSummary += "," + role;
             });
             user.roleSummary = user.roleSummary.substring(1);
           });

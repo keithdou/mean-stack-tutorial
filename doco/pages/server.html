@@ -49,22 +49,47 @@
     return res.status(422).jsonp(errors.array());
   }  
 
-	var password = req.body.password;
-	
-	var userData = sha512(password,generateSalt(12));
-	console.log("salt=" + userData.salt);
-	console.log("passwordHash=" + userData.passwordHash); 
+  User.findOne(
+      {"username" : req.body.username}
+     )
+    .then((existingUser) => {
+      if (existingUser) {
+        return res.status(400).send("User with this name already exists");
+      }
+      var password = req.body.password;
+  
+      var userData = sha512(password,generateSalt(12));
+      console.log("salt=" + userData.salt);
+      console.log("passwordHash=" + userData.passwordHash); 
 
-	let user = new User(req.body);
-	user.salt = userData.salt
-	user.passwordHash = userData.passwordHash;
+      let user = new User(req.body);
+      user.salt = userData.salt
+      user.passwordHash = userData.passwordHash;
 
-	user.save()
-    .then(book => {
-     res.status(200).json({'user': 'user added successfully'});
+      user.save()
+        .then(user => {
+          transporter.sendMail({
+            from: adminEmail, // sender address
+            to: user.emailAddress, // list of receivers
+            subject: "Bienvenue a " + user.username, // Subject line
+            text: "Bonjour tout le monde", // plain text body
+            html: "<b>Hello world</b>" // html body
+            })
+          .then(info => {
+            console.log("message to %s: %s",user.emailAddress, info);
+            console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+          })
+          .catch(err => {
+            console.log("message failed: %s",err);
+          });
+          res.status(200).json({'user': 'user added successfully'});
+        })
+        .catch(err => {
+         res.status(400).send("unable to save to database:" + err);
+        });
     })
     .catch(err => {
-     res.status(400).send("unable to save to database");
+      return res.status(400).send("unable to verify user :" + err);
     });
 });</code></pre>
 

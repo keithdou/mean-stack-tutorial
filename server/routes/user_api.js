@@ -87,7 +87,7 @@ router.post('/login',
         console.log("user.roles:" + user.roles);  
         var permissions = [];
         user.roles.forEach(role => {
-          permissions.push("role:" + role.name);
+          permissions.push("role:" + role);
         });
         console.log("permissions:" + permissions);
         const token = jwt.sign(

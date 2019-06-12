@@ -14,8 +14,8 @@ export class ManageComponent implements OnInit {
 	userForm: FormGroup;
 
 	roles: Array<string> = [
-	'member',
-	'admin'
+	 'member',
+	 'admin'
 	];
 
 	user: User = {
@@ -43,13 +43,7 @@ export class ManageComponent implements OnInit {
 
   addUser() {
   	console.log(JSON.stringify(this.userForm.value));
-    var newUser = Object.assign(this.userForm.value);
-    var roleList = [];
-    newUser.roles.forEach(role => {
-      roleList.push({name : role});
-    });
-    newUser.roles = roleList;
-    this.userService.addUser(newUser).subscribe(resp => {
+    this.userService.addUser(this.userForm.value).subscribe(resp => {
       console.log(resp);
     });
   }
