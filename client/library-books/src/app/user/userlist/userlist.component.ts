@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from './user.service';
-import { AppUserAuth } from '../security/app-user-auth';
-import { SecurityService } from '../security/security.service';
+import { UserService } from '../user.service';
+import { AppUserAuth } from '../../security/app-user-auth';
+import { SecurityService } from '../../security/security.service';
 
 @Component({
-  templateUrl: './user.component.html'
+  templateUrl: './userlist.component.html'
 })
-export class UserComponent implements OnInit {
+export class UserListComponent implements OnInit {
   users: AppUserAuth[];
   securityObject: AppUserAuth = null;
-
+ 
   constructor(private UserService: UserService,
               private securityService: SecurityService) {
       this.securityObject = securityService.securityObject;

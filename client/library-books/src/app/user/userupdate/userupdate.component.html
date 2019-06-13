@@ -1,0 +1,47 @@
+<div class="alert alert-danger" 
+  *ngIf="errorMessage">
+    <p>
+      <mdb-icon far size="2x" icon="thumbs-down" class="mr-3"></mdb-icon>{{errorMessage}}
+    </p>
+</div>
+<div class="alert alert-info" 
+  *ngIf="successMessage">
+    <p>
+     <mdb-icon far size="2x" icon="thumbs-up" class="mr-3"></mdb-icon>{{successMessage}}
+    </p>
+</div>
+
+<form [formGroup]="userForm" (ngSubmit)="addUser()">
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input class="form-control" name="firstName" id="username" type="text" formControlName="username">
+  </div>
+  <div class="alert alert-danger" *ngIf="userForm.get('username').hasError('required') && userForm.get('username').touched">Username is required.</div>
+ 
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input class="form-control" name="lastName" id="password" type="text" formControlName="password">
+  </div>
+  <div class="alert alert-danger" *ngIf="userForm.get('password').hasError('required') && userForm.get('password').touched">Password is required.</div>
+
+  <div class="form-group">
+    <label for="emailAddress">Email Address</label>
+    <input class="form-control" name="lastName" id="emailAddress" type="text" formControlName="emailAddress">
+  </div>
+  <div class="alert alert-danger" *ngIf="userForm.get('emailAddress').hasError('required') && userForm.get('emailAddress').touched">Email address is required.</div>
+  <div class="alert alert-danger" *ngIf="userForm.get('emailAddress').hasError('email') && userForm.get('emailAddress').touched">Invalid email format.</div>
+  
+  <div class="form-group">
+    <label for="mobileNumber">Mobile Number</label>
+    <input class="form-control" name="lastName" id="mobileNumber" type="text" formControlName="mobileNumber">
+  </div>
+  <div class="alert alert-danger" *ngIf="userForm.get('mobileNumber').hasError('required') && userForm.get('mobileNumber').touched">Mobile Number is required.</div>
+ 
+  <div class="form-group">
+    <label for="role">User Roles</label>
+    <select multiple class="form-control" name="role" id="role" formControlName="roles">
+      <option *ngFor="let userRole of roles" [ngValue]="userRole">{{userRole}}</option>
+    </select>
+  </div>
+  <button type="submit" mdbBtn color="primary" mdbWavesEffect>Add user</button>
+</form>

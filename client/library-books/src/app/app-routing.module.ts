@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BookListComponent } from './book/book-list.component';
-import { UserComponent } from './user/user.component';
-import { ManageComponent } from './user/manage/manage.component';
+import { UserListComponent } from './user/userlist/userlist.component';
+import {UserUpdateComponent } from './user/userupdate/userupdate.component';
 import { AuthGuard } from './security/auth.guard';
 
 const routes: Routes = [
@@ -24,13 +24,13 @@ const routes: Routes = [
     },
     {
 		path: 'userlist', 
-		component: UserComponent,
+		component: UserListComponent,
 	  	canActivate: [AuthGuard],
     	data: {claimType: 'admin'} 
     },
     {
 		path: 'adduser', 
-		component: ManageComponent,
+		component: UserUpdateComponent,
 	  	canActivate: [AuthGuard],
     	data: {claimType: 'admin'} 
     },

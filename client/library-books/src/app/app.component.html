@@ -1,3 +1,7 @@
+<ng-template #userTemplate>How are you {{securityObject.username}}? 
+  <div><p>Put <b>HTML</b> in here.</p></div>
+</ng-template>
+
 <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo">
 
     <!-- Navbar brand -->
@@ -24,6 +28,14 @@
         </ul>
 
         <ul class="navbar-nav ml-auto">
+          <li>
+              <a mdbBtn floating="true" mdbWavesEffect
+                  mdbPopoverHeader="My Profile"
+                  [mdbPopover]="userTemplate"
+                  *ngIf="securityObject.isAuthenticated">
+                  <mdb-icon fas icon="user" class="white-text" size="2x"></mdb-icon>
+              </a>
+          </li>
           <li class="nav-item">
             <a class="nav-link waves-light" mdbWavesEffect
                routerLink="login"     

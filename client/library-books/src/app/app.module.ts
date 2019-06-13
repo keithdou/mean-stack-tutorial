@@ -14,8 +14,8 @@ import { UserService } from './user/user.service';
 import { SecurityService } from './security/security.service';
 import { AuthGuard } from './security/auth.guard';
 import { JwtInterceptor } from './security/jwt.interceptor';
-import { UserComponent } from './user/user.component';
-import { ManageComponent } from './user/manage/manage.component';
+import { UserListComponent } from './user/userlist/userlist.component';
+import { UserUpdateComponent } from './user/userupdate/userupdate.component';
 
 @NgModule({
   declarations: [
@@ -23,8 +23,8 @@ import { ManageComponent } from './user/manage/manage.component';
     LoginComponent,
     DashboardComponent,
     BookListComponent,
-    UserComponent,
-    ManageComponent
+    UserListComponent,
+    UserUpdateComponent
   ],
   imports: [
     MDBBootstrapModule.forRoot(),
