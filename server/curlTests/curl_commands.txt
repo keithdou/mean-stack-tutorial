@@ -27,7 +27,7 @@ Add Book
 /usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X POST --noproxy "*" --data @add_book.json http://localhost:3000/api/library/add
 
 Get Book - look up mongodb for id
-/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X GET --noproxy "*" http://localhost:3000/api/library/find/5cf508a8bb13069d1fb6a56d
+/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X GET --noproxy "*" http://localhost:3000/api/library/find/5cfa60665aedb3167f7cb1d7
 
 Update Book - look up mongodb for id
 /usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X PUT --noproxy "*" --data @update_book.json http://localhost:3000/api/library/update/5cf508a8bb13069d1fb6a56d
