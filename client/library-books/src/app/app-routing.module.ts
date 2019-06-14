@@ -4,7 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BookListComponent } from './book/book-list.component';
 import { UserListComponent } from './user/userlist/userlist.component';
-import {UserUpdateComponent } from './user/userupdate/userupdate.component';
+import { UserCreateComponent } from './user/usercreate/usercreate.component';
 import { AuthGuard } from './security/auth.guard';
 
 const routes: Routes = [
@@ -30,7 +30,7 @@ const routes: Routes = [
     },
     {
 		path: 'adduser', 
-		component: UserUpdateComponent,
+		component: UserCreateComponent,
 	  	canActivate: [AuthGuard],
     	data: {claimType: 'admin'} 
     },

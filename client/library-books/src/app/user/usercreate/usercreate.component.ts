@@ -6,10 +6,10 @@ import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-manage',
-  templateUrl: './userupdate.component.html',
-  styleUrls: ['./userupdate.component.css']
+  templateUrl: './usercreate.component.html',
+  styleUrls: ['./usercreate.component.css']
 })
-export class UserUpdateComponent implements OnInit {
+export class UserCreateComponent implements OnInit {
 
   userForm: FormGroup;
   errorMessage: string;

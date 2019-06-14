@@ -13,8 +13,8 @@ export class UserListComponent implements OnInit {
   authenticatedUser: AuthenticatedUser;
   
   constructor(private UserService: UserService,
-    private router: Router,
-    private securityService: SecurityService) {
+              private router: Router,
+              private securityService: SecurityService) {
       this.authenticatedUser = securityService.securityObject;
     }
 
@@ -41,9 +41,10 @@ export class UserListComponent implements OnInit {
     return roleSummary.substring(2);
   }
 
-  rowSelected(user : any) {
+  rowSelected(user : User) {
     console.log("selected user:");
     console.log(user);
+    this.UserService.selectedUser = user;
     this.router.navigate(["/adduser"]);
   }
 }

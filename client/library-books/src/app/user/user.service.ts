@@ -4,6 +4,7 @@ import { AuthenticatedUser } from '../security/authenticated-user';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { UpdateUserRequest } from './update-user-request';
+import { User } from './user';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -19,6 +20,8 @@ const API_URL = "/api/user/";
 export class UserService {
 
   userList : AuthenticatedUser[];
+
+  selectedUser : User;
 
   constructor(private http: HttpClient) {}
 

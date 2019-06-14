@@ -7,7 +7,7 @@ import { SecurityService } from './security/security.service';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title: string = "Paul's Training Company";
+  title: string = "Keith's MEAN Tutorial";
   securityObject: AuthenticatedUser = null;
 
   constructor(private securityService: SecurityService) {
