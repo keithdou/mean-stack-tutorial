@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { AppUserAuth } from './app-user-auth';
-import { AppUser } from './app-user';
+import { AuthenticatedUser } from './authenticated-user';
+import { LoginRequest } from './login-request';
 
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { tap } from 'rxjs/operators';
@@ -20,7 +20,7 @@ const httpOptions = {
 })
 export class SecurityService {
 
-  securityObject: AppUserAuth = new AppUserAuth();
+  securityObject: AuthenticatedUser = new AuthenticatedUser();
 
   constructor(private http: HttpClient) { }
 
@@ -32,22 +32,18 @@ export class SecurityService {
     this.securityObject.mobileNumber = "";
     this.securityObject.admin = false;
     this.securityObject.roles = null;
-    this.securityObject.roleSummary = "";
-    
+     
     localStorage.removeItem("currentUser");
   }
 
-  login(entity: AppUser): Observable<AppUserAuth> {
+  login(entity: LoginRequest): Observable<AuthenticatedUser> {
     // Initialize security object
     this.resetSecurityObject();
-    return this.http.post<AppUserAuth>(API_URL + "login", entity, httpOptions).pipe(
+    return this.http.post<AuthenticatedUser>(API_URL + "login", entity, httpOptions).pipe(
     tap(resp => {
-      // Use object assign to update the current object
-      // NOTE: Don't create a new AppUserAuth object
-      //       because that destroys all references to object
       Object.assign(this.securityObject, resp);
-       // temp
-        this.securityObject.admin = true;
+      // temp
+       this.securityObject.admin = true;
        
       // Store user name + token into local storage
       localStorage.setItem("currentUser",JSON.stringify({

@@ -10,7 +10,7 @@
 
     (onclick)="addUser()"
 
-   *ngIf="securityObject.canUpdate">
+   *ngIf="authenticatedUser.admin">
       Add New User
     </button> 
   </div>
@@ -20,6 +20,7 @@
   <table class="table table-bordered table-striped table-condensed">
     <thead>
       <tr>
+        <th>Options</th>
         <th>Name</th>
         <th>Email Address</th>
         <th>Mobile Number</th>
@@ -27,11 +28,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users">      
+      <tr *ngFor="let user of users">
+        <td> 
+            <button mdbBtn type="button" size="sm" color="default" mdbWavesEffect (click)="rowSelected(user)">Edit
+              <mdb-icon fas icon="pen-fancy" class="ml-1"></mdb-icon>
+            </button>
         <td>{{user.username}}</td>
         <td>{{user.emailAddress}}</td>
         <td>{{user.mobileNumber}}</td>
-        <td>{{user.roleSummary}}</td>
+        <td>{{formatRoles(user.roles)}}</td>
       </tr>
     </tbody>
   </table>

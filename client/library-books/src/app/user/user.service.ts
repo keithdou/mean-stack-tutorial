@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { AppUserAuth } from '../security/app-user-auth';
+import { AuthenticatedUser } from '../security/authenticated-user';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { tap } from 'rxjs/operators';
+import { UpdateUserRequest } from './update-user-request';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,21 +18,29 @@ const API_URL = "/api/user/";
 })
 export class UserService {
 
+  userList : AuthenticatedUser[];
+
   constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<AppUserAuth[]> {
-    return this.http.get<AppUserAuth[]>(API_URL + "list",  httpOptions).pipe(
+  getUsers(): Observable<AuthenticatedUser[]> {
+    return this.http.get<AuthenticatedUser[]>(API_URL + "list",  httpOptions).pipe(
     tap(resp => {
-      console.log("BookList");
+      this.userList = resp;
+      console.log("UserList");
       console.log(resp);
     }));
   }
 
-  addUser(user) {
-    return this.http.post(API_URL + "add", user, httpOptions)
+  addUser(createUserRequest) {
+    return this.http.post(API_URL + "add", createUserRequest, httpOptions)
       .pipe(
         tap(resp => {
            console.log(resp);
         }));
+  }
+
+  updateUser(updateUserRequest) {
+    console.log("update_user:");
+    console.log(updateUserRequest);
   }
 }

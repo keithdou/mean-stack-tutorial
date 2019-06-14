@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { User } from "../user";
+import { CreateUserRequest } from "../create-user-request";
 import { UserService } from '../user.service';
 
 
@@ -20,14 +20,13 @@ export class UserUpdateComponent implements OnInit {
 	 'admin'
 	];
 
-	user: User = {
-    username: '', //'linda',
-    password: '', //'linda',
-    emailAddress: '', //'lindaZ@mailinator.com',
-    mobileNumber: '', //'0409555555',
+	user: CreateUserRequest = {
+		username: 'linda',
+		password: 'linda',
+    emailAddress: 'lindaZ@mailinator.com',
+    mobileNumber: '0409555555',
     roles: ["member"]
-  };
-
+	};
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService) { 
@@ -35,7 +34,7 @@ export class UserUpdateComponent implements OnInit {
       this.userForm = this.formBuilder.group({
       'username': [this.user.username, [Validators.required]],
       'password': [this.user.password, [Validators.required]],
-      'emailAddress': [this.user.emailAddress, [Validators.required, Validators.email]],
+      'emailAddress': [this.user.emailAddress, [Validators.required]],
       'mobileNumber': [this.user.mobileNumber, [Validators.required]],
       'roles': [this.user.roles, [Validators.required]]
     });
@@ -46,12 +45,6 @@ export class UserUpdateComponent implements OnInit {
 
   addUser() {
     console.log(JSON.stringify(this.userForm.value));
-
-    if (!this.userForm.valid) {
-      this.errorMessage = "Please complete required fields";
-      return;
-    }
-
     this.errorMessage = '';
     this.successMessage = '';
     this.userService.addUser(this.userForm.value).subscribe(

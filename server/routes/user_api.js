@@ -7,7 +7,7 @@ const nodemailer = require("nodemailer"); // for email
 
 const router = express.Router();			// Express Router 	
 const mongoose = require('mongoose');		// MongoDB handler
-const {check, validationResult} = require('express-validator/check');
+const {check, body, checkSchema, validationResult} = require('express-validator/check');
 
 let User = require('../mongodb/User');
 let guard = require('express-jwt-permissions')();
@@ -33,24 +33,57 @@ var sha512 = function(password, salt){
   };
 };
 
+/* Use a stream for email testing */
+let transporter = nodemailer.createTransport({
+  jsonTransport: true
+});
+
 /* NodeMailer test account */
-var transporter;
-nodemailer.createTestAccount()
- .then(testAccount => {
-    console.log("Test account %s/%s",testAccount.user,testAccount.pass);
-    transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
-      port: 587,
-      secure: false, // true for 465, false for other ports
-      auth: {
-        user: testAccount.user, // generated ethereal user
-        pass: testAccount.pass // generated ethereal password
-      }
-    })
-  })
- .catch(err => {
-      console.log(err);
- });
+// var transporter;
+// nodemailer.createTestAccount()
+//  .then(testAccount => {
+//     console.log("Test account %s/%s",testAccount.user,testAccount.pass);
+//     transporter = nodemailer.createTransport({
+//       host: "smtp.ethereal.email",
+//       port: 587,
+//       secure: false, // true for 465, false for other ports
+//       auth: {
+//         user: testAccount.user, // generated ethereal user
+//         pass: testAccount.pass // generated ethereal password
+//       }
+//     })
+//   })
+//  .catch(err => {
+//       console.log(err);
+//  });
+
+/* Custom role validation */
+var permissableRoles = ["admin","member"];
+var roleSchema = {
+  roles : {
+    in: ['body'],
+    exists : {
+      errorMessage : 'Role(s) must be supplied'
+    },
+    isArray: {
+      errorMessage: 'Invalid array',
+      options: true
+    },
+    custom: {
+      options: param => {
+        var valid = true;
+        param.some(val => {
+          if (permissableRoles.indexOf(val) < 0) {
+            valid = false;
+            return valid;
+          }
+        });
+        return valid;
+      },
+      errorMessage : "Invalid role name"
+    }
+  }
+}
 
 // ------------------- Public (unprotected) Methods -----------------------
 router.post('/login', 
@@ -129,7 +162,8 @@ router.post('/add',
     check('mobileNumber','Invalid Australian mobile number')
         .isMobilePhone('en-AU'),
     check('emailAddress','Invalid email address format')
-        .isEmail()
+        .isEmail(),
+    checkSchema(roleSchema)
   ], (req, res) => {
 
   const errors = validationResult(req);
@@ -164,8 +198,9 @@ router.post('/add',
             html: "<b>Hello world</b>" // html body
             })
           .then(info => {
-            console.log("message to %s: %s",user.emailAddress, info);
-            console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+            console.log(info.envelope);
+            console.log(info.message);
+            //console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
           })
           .catch(err => {
             console.log("message failed: %s",err);
@@ -194,7 +229,8 @@ router.put('/update/:userId',
     check('mobileNumber','Invalid Australian mobile number')
       .isMobilePhone('en-AU'),
     check('emailAddress','Invalid email address format')
-      .isEmail()
+      .isEmail(),
+    checkSchema(roleSchema)
   ],(req, res) => { 
  
   console.log("update " +  req.params.username);
@@ -305,7 +341,7 @@ router.delete('/delete/:userId',
 
 // List users **************************
 router.get('/list', guard.check([['role:admin']]), (req, res) => {
- User.find({},{"__v" : 0})
+ User.find({},{"__v" : 0,"passwordHash" : 0, "salt" : 0})
  .sort('username')
  .then(userList => {
     if (userList) {

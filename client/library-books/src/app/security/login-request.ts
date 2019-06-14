@@ -1,4 +1,4 @@
-export class AppUser  {
+export class LoginRequest  {
     username: string = "";
     password: string = "";
 }

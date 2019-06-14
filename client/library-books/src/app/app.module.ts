@@ -32,7 +32,7 @@ import { UserUpdateComponent } from './user/userupdate/userupdate.component';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [
     BookService,

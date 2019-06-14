@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AppUser } from '../security/app-user';
-import { AppUserAuth } from '../security/app-user-auth';
+import { LoginRequest } from '../security/login-request';
+import { AuthenticatedUser } from '../security/authenticated-user';
 import { SecurityService } from '../security/security.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -11,8 +11,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  user: AppUser = new AppUser();
-  securityObject: AppUserAuth = null;
+  loginRequest: LoginRequest = new LoginRequest();
+  securityObject: AuthenticatedUser = null;
   returnUrl: string;
   errorMessage: string;
 
@@ -27,17 +27,10 @@ export class LoginComponent implements OnInit {
   login() {
     localStorage.removeItem("currentUser");
     this.errorMessage = "";
-    this.securityService.login(this.user)
+    this.securityService.login(this.loginRequest)
     .subscribe(
       resp => {
         this.securityObject = resp;
-
-        this.securityObject.roleSummary = '';
-        this.securityObject.roles.forEach(role => {
-          this.securityObject.roleSummary += "," + role;
-        });
-        this.securityObject.roleSummary = this.securityObject.roleSummary.substring(1);
-   
         if (this.returnUrl) {
           this.router.navigateByUrl(this.returnUrl);
         } else {

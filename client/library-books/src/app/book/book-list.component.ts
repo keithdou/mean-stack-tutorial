@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService } from './book.service';
 import { Book } from './book';
-import { AppUserAuth } from '../security/app-user-auth';
+import { AuthenticatedUser } from '../security/authenticated-user';
 import { SecurityService } from '../security/security.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { SecurityService } from '../security/security.service';
 })
 export class BookListComponent implements OnInit {
   books: Book[];
-  securityObject: AppUserAuth = null;
+  securityObject: AuthenticatedUser = null;
 
   constructor(private BookService: BookService,
               private securityService: SecurityService) {
