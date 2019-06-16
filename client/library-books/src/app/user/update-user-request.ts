@@ -1,5 +1,5 @@
 export class UpdateUserRequest {
-    username: string;
+	username: string;
     emailAddress: string;
     mobileNumber: string;
     roles: string[];

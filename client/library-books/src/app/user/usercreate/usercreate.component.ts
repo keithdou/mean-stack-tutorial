@@ -21,10 +21,10 @@ export class UserCreateComponent implements OnInit {
 	];
 
 	user: CreateUserRequest = {
-		username: 'linda',
-		password: 'linda',
-    emailAddress: 'lindaZ@mailinator.com',
-    mobileNumber: '0409555555',
+		username: '',
+		password: '',
+    emailAddress: '',
+    mobileNumber: '',
     roles: ["member"]
 	};
 

@@ -45,5 +45,10 @@ export class UserService {
   updateUser(updateUserRequest) {
     console.log("update_user:");
     console.log(updateUserRequest);
+    return this.http.put(API_URL + "update/" + updateUserRequest.userId, updateUserRequest, httpOptions)
+      .pipe(
+        tap(resp => {
+           console.log(resp);
+        }));
   }
 }

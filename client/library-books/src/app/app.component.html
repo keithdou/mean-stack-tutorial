@@ -25,6 +25,15 @@
                   <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/adduser" *ngIf="securityObject.admin">Add User</a>
                 </div>
             </li>
+
+            <li class="nav-item dropdown" dropdown>
+                <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect
+                *ngIf="securityObject.isAuthenticated">
+                Books<span class="caret"></span></a>
+                <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+                  <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/booklist" *ngIf="securityObject.admin || securityObject.member">Booklist</a>
+                </div>
+            </li>
         </ul>
 
         <ul class="navbar-nav ml-auto">
@@ -50,65 +59,11 @@
           </li>
         </ul>
         <!-- Links -->
-
-<!-- Search form -->
-       <!--  <form class="form-inline waves-light" mdbWavesEffect>
-            <div class="md-form my-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-            </div>
-        </form> -->
     </links>
     <!-- Collapsible content -->
 
 </mdb-navbar>
 
-<!-- <nav class="navbar nav-justified navbar-fixed-top 
-            navbar-inverse" role="navigation"> 
-  <div class="container">
-    <div class="navbar-header">
-      <a routerLink="/dashboard" class="navbar-brand">
-        Home
-      </a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li>
-        <a routerLink="/products"
-      
-           *ngIf="securityObject.canAccessProducts">Products</a>
-      </li>
-      <li>
-        <a routerLink="/booklist"
-      
-           *ngIf="securityObject.canQuery">Books</a>
-      </li>
-      <li>
-        <a routerLink="/userlist"
-      
-           *ngIf="securityObject.admin">Users</a>
-      </li>
-      <li>
-        <a routerLink="/adduser"
-      
-           *ngIf="securityObject.admin">Add User</a>
-      </li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li>
-        <a routerLink="login" 
-    
-           *ngIf="!securityObject.isAuthenticated">
-          Login
-        </a>
-        <a href="#" (onclick)="logout()"
-    
-           *ngIf="securityObject.isAuthenticated">
-          Logout {{securityObject.username}}
-        </a>
-      </li>
-    </ul>
-  </div>
-</nav> 
--->
 <div class="container body-content">
   <router-outlet></router-outlet>
 </div>

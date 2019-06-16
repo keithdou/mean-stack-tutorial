@@ -42,8 +42,10 @@ export class SecurityService {
     return this.http.post<AuthenticatedUser>(API_URL + "login", entity, httpOptions).pipe(
     tap(resp => {
       Object.assign(this.securityObject, resp);
-      // temp
-       this.securityObject.admin = true;
+      var roles = [];
+      roles = this.securityObject.roles;
+      this.securityObject.admin = roles.includes("admin");
+      this.securityObject.member = roles.includes("member");
        
       // Store user name + token into local storage
       localStorage.setItem("currentUser",JSON.stringify({

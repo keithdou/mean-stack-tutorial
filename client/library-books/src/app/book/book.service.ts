@@ -4,7 +4,7 @@ import { Book } from './book';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 
-const API_URL = "/api/books/";
+const API_URL = "/api/library/";
 
 const httpOptions = {
   headers: new HttpHeaders({

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-xs-12">
-    <h1>Create User</h1>
+    <h1>Update User</h1>
   </div>
 </div>
 
@@ -17,19 +17,13 @@
     </p>
 </div>
 
-<form [formGroup]="userForm" (ngSubmit)="addUser()">
+<form [formGroup]="userForm" (ngSubmit)="updateUser()">
   <div class="form-group">
     <label for="username">Username</label>
     <input class="form-control" name="firstName" id="username" type="text" formControlName="username">
   </div>
   <div class="alert alert-danger" *ngIf="userForm.get('username').hasError('required') && userForm.get('username').touched">Username is required.</div>
  
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input class="form-control" name="lastName" id="password" type="text" formControlName="password">
-  </div>
-  <div class="alert alert-danger" *ngIf="userForm.get('password').hasError('required') && userForm.get('password').touched">Password is required.</div>
-
   <div class="form-group">
     <label for="emailAddress">Email Address</label>
     <input class="form-control" name="lastName" id="emailAddress" type="text" formControlName="emailAddress">
@@ -50,5 +44,5 @@
     </select>
   </div>
   
-  <button type="submit" mdbBtn color="primary" mdbWavesEffect>Add user</button>
+  <button type="submit" mdbBtn color="primary" mdbWavesEffect>Update user</button>
 </form>

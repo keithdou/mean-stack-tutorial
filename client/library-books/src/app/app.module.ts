@@ -16,6 +16,7 @@ import { AuthGuard } from './security/auth.guard';
 import { JwtInterceptor } from './security/jwt.interceptor';
 import { UserListComponent } from './user/userlist/userlist.component';
 import { UserCreateComponent } from './user/usercreate/usercreate.component';
+import { UserUpdateComponent } from './user/userupdate/userupdate.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { UserCreateComponent } from './user/usercreate/usercreate.component';
     DashboardComponent,
     BookListComponent,
     UserListComponent,
-    UserCreateComponent
+    UserCreateComponent,
+    UserUpdateComponent
   ],
   imports: [
     MDBBootstrapModule.forRoot(),

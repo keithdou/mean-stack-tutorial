@@ -45,6 +45,6 @@ export class UserListComponent implements OnInit {
     console.log("selected user:");
     console.log(user);
     this.UserService.selectedUser = user;
-    this.router.navigate(["/adduser"]);
+    this.router.navigate(["/updateuser"]);
   }
 }
