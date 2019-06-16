@@ -1,7 +1,7 @@
 /* --------------- Express Router Module ------------- */
 const express = require('express');
 const jwt = require('jsonwebtoken');		// for JWT
-const config = require('../config.json');	// secret string for JWT
+const config = require('../jwt_config.json');	// secret string for JWT
 const crypto = require('crypto');			// for Password hashing
 const nodemailer = require("nodemailer"); // for email
 
