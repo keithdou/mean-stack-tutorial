@@ -6,12 +6,8 @@
 
 <div class="row">
   <div class="col-xs-12">
-    <button class="btn btn-primary"
-
-    (onclick)="addUser()"
-
-   *ngIf="authenticatedUser.admin">
-      Add New User
+    <button class="btn btn-primary" (click)="addUser()" *ngIf="authenticatedUser.admin">
+      Add New User<i class="fas fa-plus" style="color: white; padding-left:0.5em"></i>
     </button> 
   </div>
 </div>
@@ -30,8 +26,8 @@
     <tbody>
       <tr *ngFor="let user of users">
         <td> 
-            <button mdbBtn type="button" size="sm" color="default" mdbWavesEffect (click)="rowSelected(user)">Edit
-              <mdb-icon fas icon="pen-fancy" class="ml-1"></mdb-icon>
+            <button class="btn btn-success" (click)="rowSelected(user)">Edit
+               <i class="fas fa-pen" style="color: white"></i>
             </button>
         <td>{{user.username}}</td>
         <td>{{user.emailAddress}}</td>

@@ -31,6 +31,7 @@ export class UserListComponent implements OnInit {
   }
   
   addUser() {
+    this.router.navigate(["/adduser"]);
   }
 
   formatRoles(roles) {

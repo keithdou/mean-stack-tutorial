@@ -6,14 +6,18 @@
 
 <div class="alert alert-danger" 
   *ngIf="errorMessage">
-    <p>
-      <mdb-icon far size="2x" icon="thumbs-down" class="mr-3"></mdb-icon>{{errorMessage}}
-    </p>
+    <div class="alert alert-danger" 
+        *ngIf="errorMessage">
+       <i class="fas fa-thumbs-down fa-lg" style="color: #339af0;padding-right:0.5em"></i>
+      <ul *ngFor="let msg of errorMessage">
+        <li>{{msg.param}} ; {{msg.msg}}</li>
+      </ul>
+</div>
 </div>
 <div class="alert alert-info" 
   *ngIf="successMessage">
     <p>
-     <mdb-icon far size="2x" icon="thumbs-up" class="mr-3"></mdb-icon>{{successMessage}}
+     <i class="fas fa-thumbs-up fa-lg" style="color: #339af0;padding-right:0.5em"></i>{{successMessage}}
     </p>
 </div>
 

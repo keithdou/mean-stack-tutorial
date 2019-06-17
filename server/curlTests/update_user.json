@@ -1,6 +1,6 @@
 {
-"username" : "sally", 
-"emailAddress" : "sally@yahoo.com",
+"username" : "admin", 
+"emailAddress" : "admin@yahoo.com",
 "mobileNumber" : "0409444444",
-"roles"     : ["member"]
+"roles"     : ["admin","member"]
 }

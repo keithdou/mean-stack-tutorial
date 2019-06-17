@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -18,6 +17,13 @@ import { UserListComponent } from './user/userlist/userlist.component';
 import { UserCreateComponent } from './user/usercreate/usercreate.component';
 import { UserUpdateComponent } from './user/userupdate/userupdate.component';
 
+import { AlertModule } from 'ngx-bootstrap';
+import { AccordionModule } from 'ngx-bootstrap/accordion'
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +35,12 @@ import { UserUpdateComponent } from './user/userupdate/userupdate.component';
     UserUpdateComponent
   ],
   imports: [
-    MDBBootstrapModule.forRoot(),
+    AlertModule.forRoot(),
+    AccordionModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    ModalModule.forRoot(),
+    TabsModule.forRoot(),
+    CollapseModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,

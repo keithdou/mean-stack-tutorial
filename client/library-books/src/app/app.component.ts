@@ -9,6 +9,7 @@ import { SecurityService } from './security/security.service';
 export class AppComponent {
   title: string = "Keith's MEAN Tutorial";
   securityObject: AuthenticatedUser = null;
+  isCollapsed : boolean = true;
 
   constructor(private securityService: SecurityService) {
     this.securityObject = securityService.securityObject;

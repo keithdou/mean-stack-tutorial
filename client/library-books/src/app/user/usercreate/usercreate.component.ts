@@ -12,7 +12,7 @@ import { UserService } from '../user.service';
 export class UserCreateComponent implements OnInit {
 
   userForm: FormGroup;
-  errorMessage: string;
+  errorMessage: [];
   successMessage: string;
 
 	roles: Array<string> = [
@@ -45,7 +45,7 @@ export class UserCreateComponent implements OnInit {
 
   addUser() {
     console.log(JSON.stringify(this.userForm.value));
-    this.errorMessage = '';
+    this.errorMessage = [];
     this.successMessage = '';
     this.userService.addUser(this.userForm.value).subscribe(
       resp => {

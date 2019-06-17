@@ -1,68 +1,91 @@
-<ng-template #userTemplate>How are you {{securityObject.username}}? 
-  <div><p>Put <b>HTML</b> in here.</p></div>
-</ng-template>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand"
+     href="#">Navbar</a>
+  <button class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-label="Toggle navigation"
+          [attr.aria-expanded]="!isCollapsed"
+          (click)="isCollapsed = !isCollapsed">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo">
-
-    <!-- Navbar brand -->
-    <mdb-navbar-brand><a class="navbar-brand active" routerLink="/dashboard">Home<span class="sr-only">(current)</span></a></mdb-navbar-brand>
-
-    <!-- Collapsible content -->
-    <links>
-
-        <!-- Links -->
-        <ul class="navbar-nav mr-auto">
-            <!-- Dropdown -->
-            <li class="nav-item dropdown" dropdown>
-                <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect
-                *ngIf="securityObject.admin">
-                User Management<span class="caret"></span></a>
-                <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-                  <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/userlist" *ngIf="securityObject.admin">List Users</a>
-                  <div class="divider dropdown-divider">
-                    <a class="dropdown-item waves-light" mdbWavesEffect href="#">Separated link</a>
-                  </div>
-                  <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/adduser" *ngIf="securityObject.admin">Add User</a>
-                </div>
+  <div class="collapse navbar-collapse"
+       id="navbarSupportedContent"
+       [ngClass]="{'show': !isCollapsed}">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <div class="dropdown" dropdown>
+          <a href id="basic-link" dropdownToggle 
+            routerLink="/userlist" *ngIf="securityObject.admin"
+            aria-controls="basic-link-dropdown">
+            User Management
+          </a>
+          <ul id="basic-link-dropdown" *dropdownMenu class="dropdown-menu"
+              role="menu" aria-labelledby="basic-link">
+            <li>
+               <a class="nav-link" *ngIf="securityObject.admin"
+                routerLink="/userlist">List Users</a>
             </li>
-
-            <li class="nav-item dropdown" dropdown>
-                <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect
-                *ngIf="securityObject.isAuthenticated">
-                Books<span class="caret"></span></a>
-                <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-                  <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/booklist" *ngIf="securityObject.admin || securityObject.member">Booklist</a>
-                </div>
+            <li>
+               <a class="nav-link" *ngIf="securityObject.admin"
+                routerLink="/userlist">Add User</a>
             </li>
-        </ul>
+          </ul> 
+        </div>
+      </li>
 
-        <ul class="navbar-nav ml-auto">
-          <li>
-              <a mdbBtn floating="true" mdbWavesEffect
-                  mdbPopoverHeader="My Profile"
-                  [mdbPopover]="userTemplate"
-                  *ngIf="securityObject.isAuthenticated">
-                  <mdb-icon fas icon="user" class="white-text" size="2x"></mdb-icon>
-              </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link waves-light" mdbWavesEffect
-               routerLink="login"     
-               *ngIf="!securityObject.isAuthenticated">
-              Login
-            </a>
-            <a href="#" class="nav-link waves-light"
-               (onclick)="logout()"
-               *ngIf="securityObject.isAuthenticated">
-              Logout {{securityObject.username}}
-            </a>
-          </li>
-        </ul>
-        <!-- Links -->
-    </links>
-    <!-- Collapsible content -->
+      <li class="nav-item active">
+        <div class="dropdown" dropdown>
+          <a href id="basic-link" dropdownToggle 
+            routerLink="/userlist" *ngIf="securityObject.isAuthenticated"
+            aria-controls="basic-link-dropdown">
+            Books
+          </a>
+          <ul id="basic-link-dropdown" *dropdownMenu class="dropdown-menu"
+              role="menu" aria-labelledby="basic-link">
+            <li>
+               <a class="nav-link" *ngIf="securityObject.isAuthenticated"
+                routerLink="/booklist">List Books</a>
+            </li>
+          </ul> 
+        </div>
+      </li>
 
-</mdb-navbar>
+
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+      <li>
+        <div  class="dropdown" dropdown>
+         <a href id="basic-link" dropdownToggle (click)="false"
+            aria-controls="basic-link-dropdown"
+            *ngIf="securityObject.isAuthenticated">
+            <i class="fas fa-user fa-lg" style="color: #339af0;padding-right:0.5em"></i>
+          </a>
+          <ul id="basic-link-dropdown" *dropdownMenu class="dropdown-menu"
+              role="menu" aria-labelledby="basic-link">
+            <li>
+              Hi There
+            </li>
+          </ul> 
+        </div>
+      </li> 
+      <li>
+        <a routerLink="login" 
+           *ngIf="!securityObject.isAuthenticated">
+          Login
+        </a>
+        <a href="#" (onclick)="logout()"  
+           *ngIf="securityObject.isAuthenticated">
+          Logout {{securityObject.username}}
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
 
 <div class="container body-content">
   <router-outlet></router-outlet>

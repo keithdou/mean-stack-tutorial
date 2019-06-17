@@ -7,7 +7,7 @@ Add User
 /usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X POST --noproxy "*" --data @add_user.json http://localhost:3000/api/user/add
 
 Update User (get object id from MongoDB)
-/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X PUT --noproxy "*" --data @update_user.json http://localhost:3000/api/user/update/5d00468e92a87227bdf010a8
+/usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X PUT --noproxy "*" --data @update_user.json http://localhost:3000/api/user/update/5d0045379a5b1127b5268614
 
 Reset password
 /usr/local/opt/curl/bin/curl --header @curl_jwt_header.txt -X PUT --noproxy "*" --data @password_reset.json http://localhost:3000/api/user/passwordreset/5cf500d2e85bdb9ce34b056e
