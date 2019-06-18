@@ -16,7 +16,7 @@
        id="navbarSupportedContent"
        [ngClass]="{'show': !isCollapsed}">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <li class="nav-item ml-2 mr-2">
         <div class="dropdown" dropdown>
           <a href id="basic-link" dropdownToggle 
             routerLink="/userlist" *ngIf="securityObject.admin"
@@ -37,7 +37,7 @@
         </div>
       </li>
 
-      <li class="nav-item active">
+      <li class="nav-item ml-2">
         <div class="dropdown" dropdown>
           <a href id="basic-link" dropdownToggle 
             routerLink="/userlist" *ngIf="securityObject.isAuthenticated"
@@ -58,7 +58,7 @@
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
-      <li>
+      <li class="nav-item ml-2"> 
         <div  class="dropdown" dropdown>
          <a href id="basic-link" dropdownToggle (click)="false"
             aria-controls="basic-link-dropdown"
@@ -73,7 +73,7 @@
           </ul> 
         </div>
       </li> 
-      <li>
+      <li class="nav-item ml-2">
         <a routerLink="login" 
            *ngIf="!securityObject.isAuthenticated">
           Login
