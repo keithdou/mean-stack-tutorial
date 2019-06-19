@@ -1,0 +1,21 @@
+<p-toolbar>
+    <div class="ui-toolbar-group-left">
+         
+        <p-splitButton *ngIf="securityObject.admin" 
+        label="User Management" icon="pi pi-check" 
+        [model]="items" styleClass="ui-button-warning"></p-splitButton>
+    </div>
+    
+    <div class="ui-toolbar-group-right">
+        <a routerLink="login" 
+           *ngIf="!securityObject.isAuthenticated">
+          Login
+        </a>
+        <a href="#" (onclick)="logout()"  
+           *ngIf="securityObject.isAuthenticated">
+          Logout {{securityObject.username}}
+        </a>
+    </div>
+</p-toolbar>
+
+<router-outlet></router-outlet>

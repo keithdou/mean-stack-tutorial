@@ -1,0 +1,42 @@
+<h1>Login</h1>
+
+<div *ngIf="errorMessage">
+  <p><p-message severity="error" text="Invalid User Name/Password."></p-message></p>
+  <p><p-message severity="error" text="{{errorMessage}}"></p-message></p>
+</div>
+
+<form id="login" name="login" (ngSubmit)="loginForm.form.valid && login()" #loginForm="ngForm" >
+  <div class="p-grid">
+      <div class="p-col-12"><label for="userName">User Name</label></div>
+      <div class="p-col-12"> 
+        <input id="username" pInputText name="username" required minlength="4"
+              [(ngModel)]="loginRequest.username" #username="ngModel"
+              autofocus="autofocus" />
+        <div *ngIf="username.invalid && (username.dirty || username.touched)"
+          class="alert alert-danger">
+          <div *ngIf="username.errors.required">
+            <p-message severity="error" text="Username is required" *ngIf="username.errors.required"></p-message>
+          </div>
+          <div *ngIf="username.errors.minlength">
+            <p-message severity="error" text="Username must be at least 4 characters long."></p-message>
+          </div>
+        </div>
+      </div>
+      <div class="p-col-12"><label for="password">Password</label></div>
+      <div class="p-col-12"> 
+        <input id="password" pInputText name="password" required minlength="4"
+              [(ngModel)]="loginRequest.password" #password="ngModel"/>
+        <div *ngIf="password.invalid && (password.dirty || password.touched)"
+          class="alert alert-danger">
+          <div *ngIf="password.errors.required">
+            <p-message severity="error" text="Password is required"></p-message>
+          </div>
+          <div *ngIf="password.errors.minlength">
+            <p-message severity="error" text="Password must be at least 4 characters long."></p-message>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <button pButton ui-button-secondary label="Login" icon="pi pi-plus" type="submit"></button>
+</form>
