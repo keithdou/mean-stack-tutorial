@@ -114,7 +114,7 @@ router.post('/login',
     		//console.log("hash=" + hash.passwordHash);
     		//console.log("userRec=" + user.passwordHash);
     		if (hash.passwordHash != user.passwordHash) {
-    			return res.status(401).json({ message: 'Invalid password' });
+    			return res.status(401).json({ param: "Error", msg: 'Invalid password' });
     		}
     		/* Create a JWT token with custom permissions data */   
         console.log("user.roles:" + user.roles);  
@@ -123,12 +123,15 @@ router.post('/login',
           permissions.push("role:" + role);
         });
         console.log("permissions:" + permissions);
+
+        // Keep JWT alive for 1 hour
+        var expiryDate = (new Date().getTime() + (60 * 60 * 1000))/1000;
         const token = jwt.sign(
           { sub: user.id,
             permissions: permissions,
+            exp: expiryDate
           }, config.secret);
-
-        /* Format Authenticated User record */
+         /* Format Authenticated User record */
         var auth = {
           userId: user.id,
           username: username,
@@ -140,7 +143,7 @@ router.post('/login',
         };
         res.send(auth);
       } else {
-         return res.status(401).json({ message: 'Invalid username' });
+         return res.status(401).json({ param: "Error", msg: 'Invalid username' });
       }
     })
     .catch(err => {
@@ -176,7 +179,7 @@ router.post('/add',
      )
     .then((existingUser) => {
       if (existingUser) {
-        return res.status(400).send("User with this name already exists");
+        return res.status(400).send([{param: 'Error', msg: "User with this name already exists"}]);
       }
       var password = req.body.password;
   
@@ -205,14 +208,14 @@ router.post('/add',
           .catch(err => {
             console.log("message failed: %s",err);
           });
-          res.status(200).json({'user': 'user added successfully'});
+          res.status(200).json({param: 'Success', msg: 'user added successfully'});
         })
         .catch(err => {
-         res.status(400).send("unable to save to database:" + err);
+         res.status(400).send({param: 'Error', msg: "unable to save to database:" + err});
         });
     })
     .catch(err => {
-      return res.status(400).send("unable to verify user :" + err);
+      return res.status(400).send({param: 'Error', msg: "unable to verify user :" + err});
     });
 });
 
@@ -249,7 +252,7 @@ router.put('/update/:userId',
 
   /* Only admin user or this (authenticated) user can update */
   if (!adminUser && req.user.sub != req.params.userId) {
-    return res.status(401).send("User is not authenticated");
+    return res.status(401).send({param: 'Error', msg:"User is not authenticated"});
   }
   
   User.findByIdAndUpdate(
@@ -264,7 +267,7 @@ router.put('/update/:userId',
     }
   })
   .catch(err => {
-    res.status(400).send("unable to update database:" + err);
+    res.status(400).send({param: 'Error', msg: "unable to update database:" + err});
   });
 });
 
@@ -308,15 +311,15 @@ router.put('/passwordreset/:userId',
         user.passwordHash = userData.passwordHash;
         user.save()
         .then(user => {
-            res.status(200).json({'user': 'user password reset successfully'});
+            res.status(200).json({param: 'Error', msg: 'user password reset successfully'});
         })
       } else {
-          res.status(404).send("User not found");
+          res.status(404).send({param: 'Error', msg:"User not found"});
       }
     })
     .catch(err => {
       console.log(err);
-    res.status(400).send("unable to update database");
+    res.status(400).send({param: 'Error', msg:"unable to update database"});
     });
 });
 
@@ -331,11 +334,11 @@ router.delete('/delete/:userId',
   User.findByIdAndRemove(
     req.params.userId)
   .then(() => {
-    res.status(200).send("Delete successful");
+    res.status(200).send({param: 'Success', msg:"Delete successful"});
   })
   .catch(err => {
     console.log(err);
-    res.status(400).send("unable to delete user");
+    res.status(400).send({param: 'Error', msg:"unable to delete user"});
   });
 });
 
@@ -347,12 +350,12 @@ router.get('/list', guard.check([['role:admin']]), (req, res) => {
     if (userList) {
       res.send(userList);
     } else {
-      res.status(404).send("No users found");
+      res.status(404).send({param: 'Warning', msg:"No users found"});
     }
   })
   .catch(err => {
     console.log(err);
-    res.status(400).send("unable to list users");
+    res.status(400).send({param: 'Error', msg:"unable to list users"});
   });
 });
 

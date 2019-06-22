@@ -13,6 +13,7 @@ import {ToolbarModule} from 'primeng/toolbar';
 import {SplitButtonModule} from 'primeng/splitbutton';
 import {TableModule} from 'primeng/table';
 import {MenuModule} from 'primeng/menu';
+import {MultiSelectModule} from 'primeng/multiselect';
 
 // App
 import { AppRoutingModule } from './app-routing.module';
@@ -52,7 +53,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MessagesModule,
     SplitButtonModule,
     TableModule,
-    ToolbarModule
+    ToolbarModule,
+    MultiSelectModule
   ],
   providers: [
     SecurityService,
